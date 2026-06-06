@@ -36,9 +36,14 @@ export function NotificationBell() {
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button variant="ghost" size="icon" className="relative">
-          <Bell className="h-4 w-4" />
-          {unread > 0 && <span className="absolute -top-0.5 -right-0.5 h-4 min-w-4 px-1 rounded-full bg-destructive text-destructive-foreground text-[10px] grid place-items-center">{unread}</span>}
+        <Button variant="ghost" size="icon" className="relative group">
+          <Bell className="h-4 w-4 transition-transform group-hover:rotate-12" />
+          {unread > 0 && (
+            <>
+              <span className="absolute -top-0.5 -right-0.5 h-4 min-w-4 px-1 rounded-full bg-destructive text-destructive-foreground text-[10px] grid place-items-center z-10">{unread}</span>
+              <span className="absolute -top-0.5 -right-0.5 h-4 min-w-4 rounded-full bg-destructive animate-ping opacity-75" />
+            </>
+          )}
         </Button>
       </PopoverTrigger>
       <PopoverContent align="end" className="w-80 p-0">
