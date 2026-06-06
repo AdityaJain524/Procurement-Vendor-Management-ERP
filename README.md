@@ -54,3 +54,4 @@ All requested ERP features have been verified, with a 100% success rate:
 - `notifications`, `activity_logs`, `audit_logs`
 
 All tables use UUID PKs, Row Level Security and role-scoped policies via `has_role()` / `is_staff()` security-definer functions.
+******************************************************************************************************************************************************************************************************************************************************
