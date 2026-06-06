@@ -1,6 +1,40 @@
 # VendorBridge — Procurement & Vendor Management ERP
 
-VendorBridge is an enterprise procurement platform: vendors, RFQs, quotations, approvals, purchase orders, invoices, audit, analytics and AI insights — all in one console.
+VendorBridge is an enterprise procurement platform that digitizes and automates the complete procurement lifecycle—from vendor onboarding and RFQ management to quotation evaluation, approvals, purchase orders, invoices, analytics, and AI-powered procurement insights.
+
+Built for modern organizations, VendorBridge eliminates fragmented procurement processes and provides a centralized, secure, and intelligent procurement ecosystem.
+
+---
+
+## 🚀 Problem Statement
+
+Organizations often struggle with:
+
+* Manual procurement workflows using spreadsheets and emails
+* Lack of vendor visibility and performance tracking
+* Slow approval cycles
+* Difficult quotation comparisons
+* Limited spend analytics
+* Poor auditability and compliance tracking
+* Inefficient communication between procurement teams and vendors
+
+VendorBridge addresses these challenges through an integrated procurement ERP platform that improves transparency, efficiency, and decision-making.
+
+---
+
+## 💡 Solution
+
+VendorBridge provides an end-to-end procurement management system where organizations can:
+
+* Manage vendors centrally
+* Create and distribute RFQs
+* Collect vendor quotations
+* Compare quotations intelligently
+* Run approval workflows
+* Generate purchase orders and invoices
+* Monitor procurement activities
+* Analyze spending patterns
+* Leverage AI-powered procurement recommendations
 
 ---
 
@@ -8,50 +42,280 @@ VendorBridge is an enterprise procurement platform: vendors, RFQs, quotations, a
 
 For testing and grading the ERP workflows, the following accounts have been pre-seeded in the database:
 
-| Role | Email Address | Password | Description / Capabilities |
-| :--- | :--- | :--- | :--- |
-| **Admin** | `admin@vendorbridge.com` | `VendorBridge2026!` | Manage users, vendors, roles, view full audit logs & analytics. |
-| **Procurement Officer** | `officer@vendorbridge.com` | `VendorBridge2026!` | Create RFQs, invite vendors, compare quotations, generate POs and Invoices. |
-| **Manager** | `manager@vendorbridge.com` | `VendorBridge2026!` | Approve, reject, or send-back quotation requests with remarks. |
-| **Vendor** | `vendor@vendorbridge.com` | `VendorBridge2026!` | View invited RFQs, submit/update quotations, view POs. (Linked to *Apex Solutions Pvt Ltd*) |
+| Role                    | Email Address              | Password            | Description / Capabilities                                                  |
+| :---------------------- | :------------------------- | :------------------ | :-------------------------------------------------------------------------- |
+| **Admin**               | `admin@vendorbridge.com`   | `VendorBridge2026!` | Manage users, vendors, roles, audit logs, and analytics.                    |
+| **Procurement Officer** | `officer@vendorbridge.com` | `VendorBridge2026!` | Create RFQs, invite vendors, compare quotations, generate POs and invoices. |
+| **Manager**             | `manager@vendorbridge.com` | `VendorBridge2026!` | Approve, reject, or send-back procurement requests.                         |
+| **Vendor**              | `vendor@vendorbridge.com`  | `VendorBridge2026!` | Submit quotations, manage bids, and view purchase orders.                   |
 
 ---
 
 ## 📋 Features Checklist & Status
 
-All requested ERP features have been verified, with a 100% success rate:
-
-| # | Screen / Feature Area | Key Functionalities | Verification Status |
-| :--- | :--- | :--- | :--- |
-| **1** | **Login & Signup** | Email & password auth, role selection on signup, session persistency, route guarding. |  Working |
-| **2** | **Dashboard** | KPI cards (Vendors, RFQs, POs, Invoices, Spend, Approvals), charts (spending trend, RFQ status distribution, volume), recent RFQ stream, quick action buttons. |  Working |
-| **3** | **Vendor Management** | Vendor registration (category, contact details, address), automatic GSTIN validation, rating display, risk scoring, category & status filters, search. |  Working |
-| **4** | **RFQ Creation** | Title, specs/product details, quantity, budget (INR), deadline calendar selection, active vendor invitation list. |  Working |
-| **5** | **Vendor Quotation** | Bid price input, delivery days, warranty period, vendor notes, editable/updatable drafts. Locked automatically when the deadline passes. |  Working |
-| **6** | **Quotation Comparison** | Side-by-side comparison matrix, lowest-price highlighting (Best tag), fastest-delivery indicator, top-rated vendor indicator, sorting, AI recommendation tradeoff summary. |  Working |
-| **7** | **Approval Workflow** | Approve, Reject, or Send Back with remarks. Workflow state updates across approvals, RFQs, and quotations. Timeline tracking. |  Working |
-| **8** | **PO & Invoice Generation** | Auto-generated PO number (`PO-YYYY-XXXXX`), auto-generated invoice number (`INV-YYYY-XXXXX`), auto tax calculations (9% CGST + 9% SGST), branded PDF generation, print-to-browser, open default email composer (mailto). |  Working |
-| **9** | **Activity Logs & Audits** | Real-time notifications popover, activity stream logs, admin audit logs for modifications. |  Working |
-| **10** | **Reports & Analytics** | spend summary KPIs, monthly spend predictive projection line, vendor rating vs risk bar charts, CSV report exports. |  Working |
+| #  | Module                  | Key Functionalities                                   | Status |
+| -- | ----------------------- | ----------------------------------------------------- | ------ |
+| 1  | Authentication          | Email login, Google OAuth, RBAC, session persistence  | ✅      |
+| 2  | Dashboard               | KPIs, charts, analytics, recent activities            | ✅      |
+| 3  | Vendor Management       | Registration, GST validation, risk scoring, ratings   | ✅      |
+| 4  | RFQ Management          | RFQ creation, vendor invitations, deadline management | ✅      |
+| 5  | Vendor Portal           | Quotation submission, editing, bid management         | ✅      |
+| 6  | Comparison Engine       | Side-by-side bid comparison, AI recommendation        | ✅      |
+| 7  | Approval Workflow       | Approve, reject, send-back with remarks               | ✅      |
+| 8  | PO & Invoice Management | Automated document generation and tax calculations    | ✅      |
+| 9  | Activity & Audit Logs   | Realtime notifications and compliance tracking        | ✅      |
+| 10 | Reports & Analytics     | Spend analytics, forecasting, CSV exports             | ✅      |
 
 ---
 
-## 🛠️ Stack & Architecture
+## 🔄 Procurement Workflow
 
-- **Frontend**: TanStack Start (React 19, Vite), Tailwind v4, shadcn/ui, React Hook Form, Zod, TanStack Table, Recharts
-- **Backend**: Supabase Postgres with Row Level Security, server functions via `@tanstack/react-start`
-- **Auth**: Email/password + Google (managed OAuth), role-based access control
-- **AI**: AI Gateway (default `google/gemini-3-flash-preview`) with **smart local heuristic fallbacks** to ensure zero-downtime operation
-- **PDFs**: `@react-pdf/renderer`
-- **Realtime**: Supabase Realtime for notifications
-- **Drag & Drop**: `@dnd-kit/core`
-## 🗄️ Database Tables
+```text
+Vendor Registration
+        │
+        ▼
+RFQ Creation
+        │
+        ▼
+Vendor Invitations
+        │
+        ▼
+Quotation Submission
+        │
+        ▼
+AI-Based Comparison
+        │
+        ▼
+Manager Approval
+        │
+        ▼
+Purchase Order Generation
+        │
+        ▼
+Invoice Generation
+        │
+        ▼
+Analytics & Audit Logs
+```
 
-- `profiles`, `user_roles` (separate table — prevents privilege escalation)
-- `vendors`, `vendor_ratings`
-- `rfqs`, `rfq_vendors`, `quotations`, `approvals`
-- `purchase_orders`, `invoices`
-- `notifications`, `activity_logs`, `audit_logs`
+---
 
-All tables use UUID PKs, Row Level Security and role-scoped policies via `has_role()` / `is_staff()` security-definer functions.
-******************************************************************************************************************************************************************************************************************************************************
+## 🤖 AI-Powered Features
+
+VendorBridge integrates AI to assist procurement teams with better decision-making.
+
+### Smart Quotation Analysis
+
+* Identifies lowest-cost vendors
+* Highlights fastest delivery options
+* Evaluates vendor reliability
+* Generates recommendation summaries
+
+### Intelligent Procurement Insights
+
+* Spend trend analysis
+* Procurement forecasting
+* Vendor risk assessment
+* Performance monitoring
+
+### Resilient AI Architecture
+
+* Gemini-powered recommendations
+* Local heuristic fallback system
+* Zero-downtime recommendation engine
+
+---
+
+## 🛠️ Technology Stack
+
+### Frontend
+
+* React 19
+* TanStack Start
+* Vite
+* TypeScript
+* Tailwind CSS v4
+* shadcn/ui
+* React Hook Form
+* Zod
+* TanStack Table
+* Recharts
+
+### Backend
+
+* Supabase PostgreSQL
+* Row Level Security (RLS)
+* Server Functions via TanStack Start
+
+### Authentication
+
+* Supabase Auth
+* Google OAuth
+* Role-Based Access Control
+
+### AI
+
+* Google Gemini
+* AI Gateway
+* Smart Heuristic Fallback Engine
+
+### Realtime Services
+
+* Supabase Realtime
+
+### Document Generation
+
+* React PDF Renderer
+
+### Drag & Drop
+
+* DnD Kit
+
+---
+
+## 🏗️ System Architecture
+
+```text
+┌─────────────────────────────┐
+│         Frontend            │
+│ React + TanStack Start      │
+└──────────────┬──────────────┘
+               │
+               ▼
+┌─────────────────────────────┐
+│      Server Functions       │
+│ Business Logic Layer        │
+└──────────────┬──────────────┘
+               │
+               ▼
+┌─────────────────────────────┐
+│      Supabase Backend       │
+│ PostgreSQL + RLS Policies   │
+└───────┬───────────┬─────────┘
+        │           │
+        ▼           ▼
+   AI Engine   Realtime Layer
+   Gemini      Notifications
+```
+
+---
+
+## 🔒 Security Features
+
+VendorBridge follows enterprise-grade security practices:
+
+* Row Level Security (RLS)
+* UUID-based Primary Keys
+* Role-Based Access Control
+* Protected Routes
+* Security-Definer Functions
+* Privilege Escalation Prevention
+* Role-Scoped Database Policies
+
+---
+
+## 🗄️ Database Schema
+
+### User Management
+
+* `profiles`
+* `user_roles`
+
+### Vendor Management
+
+* `vendors`
+* `vendor_ratings`
+
+### Procurement
+
+* `rfqs`
+* `rfq_vendors`
+* `quotations`
+* `approvals`
+
+### Procurement Documents
+
+* `purchase_orders`
+* `invoices`
+
+### Monitoring & Compliance
+
+* `notifications`
+* `activity_logs`
+* `audit_logs`
+
+---
+
+## 📊 Analytics & Reporting
+
+VendorBridge provides actionable procurement insights through:
+
+* Spend Summary KPIs
+* Monthly Spend Forecasting
+* Vendor Risk Analysis
+* Vendor Rating Analytics
+* Procurement Trends
+* CSV Report Exports
+
+---
+
+## ⚙️ Local Development Setup
+
+### Clone Repository
+
+```bash
+git clone https://github.com/your-username/vendorbridge.git
+cd vendorbridge
+```
+
+### Install Dependencies
+
+```bash
+npm install
+```
+
+### Configure Environment Variables
+
+```env
+VITE_SUPABASE_URL=
+VITE_SUPABASE_ANON_KEY=
+GOOGLE_CLIENT_ID=
+AI_GATEWAY_API_KEY=
+```
+
+### Start Development Server
+
+```bash
+npm run dev
+```
+
+### Build for Production
+
+```bash
+npm run build
+```
+
+---
+
+## 🌟 Future Enhancements
+
+* Multi-Tenant Organization Support
+* Mobile Application
+* ERP Integrations (SAP, Oracle)
+* Advanced Vendor Performance Prediction
+* AI Contract Analysis
+* Procurement Fraud Detection
+* Blockchain-Based Audit Trail
+* Multi-Currency Procurement Support
+
+---
+
+## 🏆 Why VendorBridge?
+
+VendorBridge combines procurement automation, AI-powered insights, approval workflows, analytics, and compliance monitoring into a single platform, helping organizations make smarter procurement decisions while reducing operational complexity.
+
+---
+
+## 📜 License
+
+This project was developed for educational, research, and hackathon purposes.
