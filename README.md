@@ -36,6 +36,15 @@ All requested ERP features have been verified, with a 100% success rate:
 
 ---
 
+## 🛠️ Stack & Architecture
+
+- **Frontend**: TanStack Start (React 19, Vite), Tailwind v4, shadcn/ui, React Hook Form, Zod, TanStack Table, Recharts
+- **Backend**: Supabase Postgres with Row Level Security, server functions via `@tanstack/react-start`
+- **Auth**: Email/password + Google (managed OAuth), role-based access control
+- **AI**: AI Gateway (default `google/gemini-3-flash-preview`) with **smart local heuristic fallbacks** to ensure zero-downtime operation
+- **PDFs**: `@react-pdf/renderer`
+- **Realtime**: Supabase Realtime for notifications
+- **Drag & Drop**: `@dnd-kit/core`
 ## 🗄️ Database Tables
 
 - `profiles`, `user_roles` (separate table — prevents privilege escalation)

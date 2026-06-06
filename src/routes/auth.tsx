@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { supabase } from "@/integrations/supabase/client";
-import { lovable } from "@/integrations/lovable";
+import { cloudAuth } from "@/integrations/cloud-auth";
 import { useAuth, type Role } from "@/lib/auth";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -74,7 +74,7 @@ function GoogleButton() {
       type="button" variant="outline" className="mt-4 w-full" disabled={busy}
       onClick={async () => {
         setBusy(true);
-        const res = await lovable.auth.signInWithOAuth("google", { redirect_uri: window.location.origin + "/dashboard" });
+        const res = await cloudAuth.auth.signInWithOAuth("google", { redirect_uri: window.location.origin + "/dashboard" });
         if (res.error) { toast.error(res.error.message || "Google sign-in failed"); setBusy(false); }
       }}
     >Continue with Google</Button>

@@ -1,4 +1,4 @@
-// Server functions for AI features powered by Lovable AI Gateway.
+// Server functions for AI features powered by AI Gateway.
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 
